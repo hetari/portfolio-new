@@ -1,8 +1,11 @@
 {
   "$schema": "https://unpkg.com/oxfmt/configuration_schema.json",
   "semi": false,
-  "singleQuote": true,
+  "singleQuote": false,
   "arrowParens": "avoid",
   "quoteProps": "consistent",
-  "experimentalSortPackageJson": false
+  "experimentalSortPackageJson": false,
+  "experimentalTailwindcss": {
+    "stylesheet": "./app/assets/css/main.css"
+  }
 }

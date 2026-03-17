@@ -1,8 +1,18 @@
-# Nuxt Minimal Starter
+# Ebraheem Alhetari - Full-Stack Developer Portfolio
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+### Enjoying my project? Please show your appreciation by starring it on GitHub! ⭐
 
-## Setup
+Welcome to my portfolio! I'm **Ebraheem Alhetari**, a full-stack developer and freelancer with a passion for creating immersive web experiences. Specializing in **Nuxt**, **Vue**, **GSAP** animations, and **Tailwind CSS**, I craft elegant, responsive, and fully animated websites.
+
+## 📜 Important Note
+
+If you would like to use or modify this portfolio, please:
+
+1. **Star** this repository on GitHub.
+2. **Fork** the repository instead of cloning or downloading it directly.
+3. **Credit** Ebraheem Alhetari as the original coder and animator.
+
+## 🚀 Getting Started
 
 Make sure to install dependencies:
 
@@ -71,5 +81,3 @@ yarn preview
 # bun
 bun run preview
 ```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
