@@ -1,6 +1,6 @@
 {
   "$schema": "https://unpkg.com/oxfmt/configuration_schema.json",
-  "semi": false,
+  "semi": true,
   "singleQuote": false,
   "arrowParens": "avoid",
   "quoteProps": "consistent",

@@ -1,0 +1,26 @@
+/* Haffer Regular */
+@font-face {
+  font-family: "Haffer";
+  src: url("/assets/fonts/HafferXH-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Lay Grotesk */
+@font-face {
+  font-family: "Lay";
+  src: url("/assets/fonts/Lay Grotesk.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/*Nohemi-Regular*/
+@font-face {
+  font-family: "Nohemi";
+  src: url("/assets/fonts/Nohemi-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
