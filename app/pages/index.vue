@@ -26,10 +26,11 @@ useHead({
       <h1
         ref="text"
         class="inline-block overflow-clip font-fancy leading-[0.8] text-fit whitespace-nowrap uppercase"
-        :class="isReady ? 'opacity-100' : 'opacity-0'"
-        :style="style"
+        :style="[style, { opacity: isReady ? 1 : 0, transition: 'opacity 0.4s ease' }]"
+        data-vitals-ignore
       >
-        <AnimationLetterByLetter text="EBRAHEEM" />
+        <!-- EBRAHEEM -->
+        <AnimationLetterByLetter :start="isReady" text="EBRAHEEM" />
       </h1>
     </div>
   </section>

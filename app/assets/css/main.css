@@ -1,8 +1,10 @@
 @import "tailwindcss";
 @import "./fonts.css";
 
+/*
 @custom-variant dark
     (&: where([data-theme=dark], [data-theme=dark] *));
+*/
 
 @theme inline {
   --font-heading: "Haffer", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -59,6 +61,7 @@
   --ring: oklch(0.708 0 0);
 }
 
+/*
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.922 0 0);
@@ -80,6 +83,7 @@
   --input: oklch(0.708 0 0);
   --ring: oklch(0.922 0 0);
 }
+*/
 
 @layer base {
   * {

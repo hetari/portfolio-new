@@ -5,14 +5,14 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
 
-  modules: ["@nuxtjs/color-mode", "@vueuse/nuxt", "@nuxt/image", "@nuxt/hints", "@nuxt/a11y"],
+  modules: ["@vueuse/nuxt", "@nuxt/image", "@nuxt/hints", "@nuxt/a11y"],
 
   css: ["./app/assets/css/main.css"],
 
   vite: {
     plugins: [tailwindcss()],
     optimizeDeps: {
-      include: ["@vue/devtools-core", "@vue/devtools-kit"],
+      include: ["@vue/devtools-core", "@vue/devtools-kit", "gsap/MorphSVGPlugin", "gsap"],
     },
   },
 });
