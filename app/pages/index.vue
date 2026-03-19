@@ -3,21 +3,34 @@ const container = useTemplateRef<HTMLDivElement>("container");
 const text = useTemplateRef<HTMLHeadingElement>("text");
 
 const { style, isReady } = useFitText(text, container);
+
+useHead({
+  title: "Home",
+});
 </script>
 
 <template>
-  <div class="relative min-h-dvh w-full px-4">
-    <!-- Nav bar space (optional - add your nav here) -->
-    <div ref="container" class="relative h-dvh">
-      <!-- Text container - positioned at the top -->
+  <section class="flex h-dvh flex-col overflow-hidden" aria-label="Portfolio Hero" role="region">
+    <!-- Up section for text -->
+    <div class="flex flex-1 flex-col justify-center px-6 lg:px-12">
+      <p
+        class="max-w-3xl font-heading text-4xl font-medium tracking-tighter text-foreground/80 md:text-5xl lg:text-6xl"
+      >
+        Digital Craftsman & <br />
+        Creative Developer.
+      </p>
+    </div>
+
+    <!-- Bottom section for name -->
+    <div ref="container" class="w-full">
       <h1
         ref="text"
-        class="bootom-0 absolute inline-block font-fancy text-fit whitespace-nowrap"
+        class="inline-block overflow-clip font-fancy leading-[0.8] text-fit whitespace-nowrap uppercase"
         :class="isReady ? 'opacity-100' : 'opacity-0'"
         :style="style"
       >
         <AnimationLetterByLetter text="EBRAHEEM" />
       </h1>
     </div>
-  </div>
+  </section>
 </template>

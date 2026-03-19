@@ -1,5 +1,6 @@
 # backup fonts
 app/assets/fonts/f
+.agents
 
 # Nuxt dev/build outputs
 .output

@@ -1,0 +1,317 @@
+╔═════════════════════════════════════════════╗
+║                                             ║
+║           New update available!             ║
+║          Run: coderabbit update             ║
+║                                             ║
+╚═════════════════════════════════════════════╝
+
+Starting CodeRabbit review in plain text mode...
+
+Connecting to review service
+Setting up
+Analyzing
+Reviewing
+
+============================================================================
+File: package.json
+Line: 26 to 29
+Type: nitpick
+
+Comment:
+Inconsistent versioning between gsap and v-gsap-nuxt
+
+gsap uses ^3.14.2 (allows minor updates) while v-gsap-nuxt is pinned to 1.5.12. This mismatch could cause compatibility issues if gsap updates but the wrapper doesn't support the new version.
+
+Consider aligning the versioning strategy—either pin both or use caret for both—to avoid drift.
+
+
+
+v-gsap-nuxt 1.5.12 gsap compatibility
+
+Prompt for AI Agent:
+Verify each finding against the current code and only fix it if needed.
+
+In @package.json around lines 26 - 29, The dependency versions are inconsistent: "gsap" is careted (^3.14.2) while "v-gsap-nuxt" is pinned (1.5.12), which can lead to compatibility drift; update package.json to align versioning strategy by either pinning "gsap" to a specific compatible version matching "v-gsap-nuxt" or changing "v-gsap-nuxt" to a caret range (e.g., ^1.5.12) after verifying compatibility, then run install and test the code paths that use gsap and the v-gsap-nuxt wrapper to ensure no runtime errors.
+
+
+
+============================================================================
+File: package.json
+Line: 20 to 22
+Type: potential_issue
+
+Comment:
+Alpha dependency in production: @nuxt/a11y 1.0.0-alpha.1
+
+Using an alpha version introduces risk of breaking changes without notice. Consider:
+- Pinning to a stable release when available
+- Documenting why alpha is acceptable if intentional
+
+
+
+@nuxt/a11y stable release 2025
+
+Prompt for AI Agent:
+Verify each finding against the current code and only fix it if needed.
+
+In @package.json around lines 20 - 22, The package.json currently pins an alpha dependency "@nuxt/a11y": "1.0.0-alpha.1"; change this to a stable release version (e.g., the recommended stable semver when available) or to a justified pinned tag if alpha is intentional, update package.json accordingly, run your package manager to regenerate the lockfile (package-lock.json / yarn.lock), and add a short justification in the repository (e.g., in README or DEPENDENCIES.md) explaining why the alpha is required if you cannot move to a stable release; refer to the exact package name "@nuxt/a11y" and the version string "1.0.0-alpha.1" to locate the entry.
+
+
+
+============================================================================
+File: app/app.vue
+Line: 4 to 5
+Type: nitpick
+
+Comment:
+Remove or uncomment accessibility announcer components.
+
+Commented-out code shouldn't remain in production. If accessibility features (NuxtRouteAnnouncer for screen reader route announcements) are needed, uncomment them. Otherwise, delete these lines.
+
+
+
+🧹 Proposed cleanup
+
+Option A: Enable accessibility (recommended)
+-   -->
+-   -->
++  
+
+
+Option B: Remove dead code
+-   -->
+-   -->
+
+Prompt for AI Agent:
+Verify each finding against the current code and only fix it if needed.
+
+In @app/app.vue around lines 4 - 5, The file contains commented-out accessibility components NuxtAnnouncer and NuxtRouteAnnouncer; either restore them by uncommenting their tags to enable screen-reader route announcements (ensure any required props/imports are present and tests/linters pass) or remove those commented lines entirely to avoid dead code—look for the commented tokens "NuxtAnnouncer" and "NuxtRouteAnnouncer" in app.vue and apply one of the two cleanup options accordingly.
+
+
+
+============================================================================
+File: app/pages/index.vue
+Line: 15
+Type: potential_issue
+
+Comment:
+Typo: bootom-0 should be bottom-0.
+
+Tailwind won't recognize this class, so the h1 won't be positioned at the bottom as intended.
+
+
+
+
+🔤 Proposed fix
+
+-        class="bootom-0 absolute inline-block font-fancy text-fit whitespace-nowrap"
++        class="bottom-0 absolute inline-block font-fancy text-fit whitespace-nowrap"
+
+Prompt for AI Agent:
+Verify each finding against the current code and only fix it if needed.
+
+In @app/pages/index.vue at line 15, Fix the typo in the class attribute on the h1 element: replace "bootom-0" with "bottom-0" in the class string "bootom-0 absolute inline-block font-fancy text-fit whitespace-nowrap" so Tailwind will apply the bottom positioning (look for the h1 element that contains that class).
+
+
+
+============================================================================
+File: app/assets/css/main.css
+Line: 4 to 7
+Type: potential_issue
+
+Comment:
+Dark variant disabled but still referenced.
+
+The @custom-variant dark is commented out, yet dark:after:mix-blend-lighten is used in the border-ghost utility at line 138. This reference will have no effect. Either remove the dark variant usage or re-enable this block.
+
+Prompt for AI Agent:
+Verify each finding against the current code and only fix it if needed.
+
+In @app/assets/css/main.css around lines 4 - 7, The commented-out "@custom-variant dark" block means the "dark:after:mix-blend-lighten" modifier used in the "border-ghost" utility will be ignored; fix by either re-enabling the "@custom-variant dark" block (uncomment and ensure syntax matches your tooling) or remove/replace the "dark:after:mix-blend-lighten" usage from the "border-ghost" utility so it no longer references the disabled variant; search for the "@custom-variant dark" declaration and the "border-ghost" utility / "dark:after:mix-blend-lighten" token to apply the chosen change.
+
+
+
+============================================================================
+File: app/utils/wordsToChart.ts
+Line: 6 to 12
+Type: potential_issue
+
+Comment:
+Handle edge cases for empty strings and multiple spaces.
+
+split(" ") produces empty strings for:
+- Empty input ("" → [""])
+- Multiple consecutive spaces ("a  b" → ["a", "", "b"])
+- Leading/trailing spaces
+
+This results in empty Word arrays that may cause unexpected behavior in chart rendering.
+
+
+
+
+🛡️ Proposed fix to filter empty words
+
+ export function textToChars(input: string): Word[] {
+-  return input.split(" ").map(word =>
++  return input.split(" ").filter(word => word.length > 0).map(word =>
+     [...word].map(char => ({
+       char,
+     })),
+   );
+ }
+
+
+Alternatively, use a regex split to handle multiple spaces:
+
+ export function textToChars(input: string): Word[] {
+-  return input.split(" ").map(word =>
++  return input.split(/\s+/).filter(Boolean).map(word =>
+     [...word].map(char => ({
+       char,
+     })),
+   );
+ }
+
+Prompt for AI Agent:
+Verify each finding against the current code and only fix it if needed.
+
+In @app/utils/wordsToChart.ts around lines 6 - 12, The textToChars function produces empty Word entries for empty input and multiple/leading/trailing spaces; update textToChars to first handle an empty/blank input (return an empty array) and split words using a safe approach (e.g., input.split(/\s+/) or input.split(" ").filter(Boolean)) so empty strings are filtered out before mapping to Word arrays; keep the mapping that produces Word objects (char property) but ensure no empty Word arrays are created.
+
+
+
+============================================================================
+File: app/components/animation/LetterByLetter.vue
+Line: 8
+Type: potential_issue
+
+Comment:
+Unused reactive state.
+
+isHovered is declared but never used in the component. Remove it to avoid dead code.
+
+
+
+
+🧹 Proposed fix
+
+ const words = textToChars(props.text);
+-const isHovered = ref(false);
+
+Prompt for AI Agent:
+Verify each finding against the current code and only fix it if needed.
+
+In @app/components/animation/LetterByLetter.vue at line 8, The reactive variable isHovered declared in the LetterByLetter.vue component is unused; remove the declaration (const isHovered = ref(false)) from the script and, if that was the only use of ref or any other Vue import, also remove the now-unused import(s) from 'vue' to eliminate dead code and linter warnings.
+
+
+
+============================================================================
+File: app/components/animation/LetterByLetter.vue
+Line: 28 to 41
+Type: nitpick
+
+Comment:
+Consider adding a wrapper element for scoped animations.
+
+Currently the template has multiple root  elements (plus commented-out code). Adding a single wrapper  would enable scoped GSAP targeting via template ref and clean up the structure.
+
+
+
+
+♻️ Proposed wrapper
+
+ 
+-   -->
+-  LL -->
+-  
++  
++    
+       
+         {{ letter.char }}
+         {{ letter.char }}
+       
+     
+-   -->
++
+
+Prompt for AI Agent:
+Verify each finding against the current code and only fix it if needed.
+
+In @app/components/animation/LetterByLetter.vue around lines 28 - 41, The template currently renders multiple root  elements which prevents a single scoped DOM target for GSAP and clean component structure; wrap the v-for output inside a single wrapper element (e.g., ) so the template has one root, move the existing  ...  inside that wrapper, remove or relocate the commented-out root-level markup, and update any animation code that referenced root selection to use the new ref (e.g., container) when targeting letters for functions like animateLetters.
+
+
+
+============================================================================
+File: app/components/animation/LetterByLetter.vue
+Line: 34 to 39
+Type: potential_issue
+
+Comment:
+Missing :key attributes in v-for loops.
+
+Vue requires unique keys for proper list reconciliation. Without them, you may encounter rendering issues or unexpected behavior during updates.
+
+
+
+
+🔑 Proposed fix
+
+-  
+-    
++  
++    
+       {{ letter.char }}
+       {{ letter.char }}
+
+Prompt for AI Agent:
+Verify each finding against the current code and only fix it if needed.
+
+In @app/components/animation/LetterByLetter.vue around lines 34 - 39, Add unique Vue keys to both v-for loops in the LetterByLetter.vue template: give the outer p element a key based on the word index (e.g., use the v-for index alongside "word") and give the inner span a key that combines the parent word index, the letter index, and the letter.char to ensure uniqueness across letters; update the v-for signatures to expose indices (word index and letter index) and use those values to build the unique keys so Vue can properly reconcile the lists.
+
+
+
+============================================================================
+File: app/components/animation/LetterByLetter.vue
+Line: 10 to 21
+Type: potential_issue
+
+Comment:
+Global selector will animate all .letter elements on the page.
+
+Using .letter as a GSAP selector targets every element with that class across the entire DOM. If multiple LetterByLetter components exist, they'll interfere with each other.
+
+Scope the animation to this component instance using a template ref:
+
+
+
+
+🔧 Proposed fix using scoped ref
+
++const containerRef = ref(null);
++
+ const animateLetters = (direction: "down" | "up", delayed = true) => {
++  if (!containerRef.value) return;
++  const letters = containerRef.value.querySelectorAll(".letter");
+-  useGSAP().to(".letter", {
++  useGSAP().to(letters, {
+     yPercent: direction === "down" ? 100 : 0,
+     ease: "power4.inOut",
+     duration: 0.7,
+     delay: delayed ? 0.5 : undefined,
+     stagger: {
+       each: 0.05,
+       from: "random",
+     },
+   });
+ };
+
+
+Then wrap your template content with a container element using ref="containerRef".
+
+Prompt for AI Agent:
+Verify each finding against the current code and only fix it if needed.
+
+In @app/components/animation/LetterByLetter.vue around lines 10 - 21, The animation currently uses the global ".letter" selector in animateLetters which will affect every component instance; scope it to this component by adding a template ref (e.g., containerRef) and change animateLetters to target only elements inside that ref (for example use useGSAP() with the container's selector or pass containerRef.value.querySelectorAll(".letter") into to()), keeping the same animation options; update any calls that rely on the global selector to use the new scoped containerRef and ensure containerRef is defined and populated before running animateLetters.
+
+
+
+Review completed: 10 findings ✔

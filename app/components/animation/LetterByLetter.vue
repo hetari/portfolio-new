@@ -7,21 +7,17 @@ const props = defineProps<{
 const words = textToChars(props.text);
 const isHovered = ref(false);
 
-const animateLetters = (direction: "down" | "up", delayed = true) => {
-  useGSAP().to(".letter", {
-    yPercent: direction === "down" ? 100 : 0,
+useGsap(gsap => {
+  gsap.to(".letter", {
+    yPercent: 100,
     ease: "power4.inOut",
     duration: 0.7,
-    delay: delayed ? 0.5 : undefined,
+    delay: 0.5,
     stagger: {
       each: 0.05,
       from: "random",
     },
   });
-};
-
-onMounted(() => {
-  animateLetters("down");
 });
 </script>
 
