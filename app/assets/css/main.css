@@ -101,6 +101,10 @@
   body {
     @apply overflow-x-clip bg-background font-body text-foreground selection:bg-selection selection:text-selection-foreground;
   }
+  /* remove the scrollbar */
+  body::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @utility extend-touch-target {

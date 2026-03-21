@@ -9,7 +9,7 @@
     Skip to content
   </a> -->
   <SiteNavbar />
-  <main id="main-content" class="relative h-dvh w-full">
+  <main id="main-content" class="relative size-full">
     <slot />
   </main>
 </template>

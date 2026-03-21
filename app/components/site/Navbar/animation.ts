@@ -2,6 +2,7 @@ import type { Ref } from "vue";
 import { isMenuOpen } from "~/components/site/Navbar/state";
 import { toValue } from "vue";
 
+// --- Configuration ---
 /**
  * Global animation configuration for the Navbar
  */
@@ -10,10 +11,13 @@ export const NAVBAR_CONFIG = {
   ease: "power3.inOut",
 } as const;
 
+// --- Helper Animation Functions ---
+
 /**
  * Animates the header element with responsive behaviors.
  */
 function animateHeader(
+  g: typeof gsap,
   tl: gsap.core.Timeline,
   header: HTMLElement,
   isDesktop: boolean,
@@ -47,6 +51,18 @@ function animateHeader(
       0,
     );
   }
+
+  g.to(header, {
+    padding: "6px",
+    duration: NAVBAR_CONFIG.duration,
+    ease: NAVBAR_CONFIG.ease,
+    overwrite: "auto",
+    scrollTrigger: {
+      trigger: "#hero-section",
+      start: "15% 10%",
+      toggleActions: "play none none reverse", // play on enter, reverse on leaveBack
+    },
+  });
 }
 
 /**
@@ -117,6 +133,8 @@ export function animateLinks(tl: gsap.core.Timeline, container: HTMLElement) {
   );
 }
 
+// --- Main Setup Function ---
+
 /**
  * Sets up navbar sidebar animations using responsive matchMedia.
  */
@@ -143,7 +161,7 @@ export function setupNavbarAnimations(
         const bottomPath = toValue(bottomPathRef);
         const innerNav = toValue(innerNavRef);
 
-        if (!header || !topPath || !bottomPath) return;
+        if (!header || !topPath || !bottomPath || !innerNav) return;
 
         // ── Single Global Timeline ──
         const mainTl = gsap.timeline({
@@ -155,16 +173,16 @@ export function setupNavbarAnimations(
         });
 
         // Add responsive header animation
-        animateHeader(mainTl, header, !!isDesktop, !!isMobile);
+        animateHeader(gsap, mainTl, header, !!isDesktop, !!isMobile);
 
         // Add shared icon animation
         animateIcon(mainTl, topPath, bottomPath);
 
         // Add inner nav animation
-        // animateInnerNav(mainTl, innerNav);
+        animateInnerNav(mainTl, innerNav);
 
         // Add links animation
-        // animateLinks(mainTl, innerNav);
+        animateLinks(mainTl, innerNav);
 
         // SYNC: If the menu is already open when the breakpoint changes (or on mount),
         // ensure the new timeline is at the correct state.
