@@ -61,6 +61,10 @@ setupNavbarAnimations(
   computed(() => mainNavRef.value?.bottomPathRef ?? null),
   innerNavRef,
 );
+
+watch(isMenuOpen, isOpen => {
+  document.body.style.overflow = isOpen ? "clip" : "";
+});
 </script>
 
 <template>
@@ -69,7 +73,7 @@ setupNavbarAnimations(
   </Transition>
   <header
     ref="headerRef"
-    class="fixed inset-x-4 top-4 z-2147483646 rounded-lg bg-foreground p-3 text-background md:mx-auto md:max-w-2xl lg:inset-x-0 lg:max-w-4xl"
+    class="fixed inset-x-4 top-4 z-2147483646 hidden -translate-y-25 rounded-lg bg-foreground p-3 text-background opacity-0 md:mx-auto md:max-w-2xl lg:inset-x-0 lg:max-w-4xl"
     role="banner"
   >
     <SiteNavbarMainNav ref="mainNavRef" />

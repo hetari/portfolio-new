@@ -1,7 +1,7 @@
 import type { Ref } from "vue";
 import { isMenuOpen } from "~/components/site/Navbar/state";
 import { toValue } from "vue";
-import { animateHeader } from "./header";
+import { animateHeader, showHeader } from "./header";
 import { animateIcon } from "./icon";
 import { animateInnerNav } from "./innerNav";
 import { animateLinks } from "./links";
@@ -45,6 +45,9 @@ export function setupNavbarAnimations(
           const progress = mainTl.progress();
           mainTl.progress(0).invalidate().progress(progress);
         });
+
+        // Add show/hide scroll reveal logic
+        showHeader(gsap, header);
 
         // Add responsive header animation
         animateHeader(gsap, mainTl, header, !!isDesktop, !!isMobile);
