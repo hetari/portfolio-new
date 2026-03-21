@@ -1,11 +1,11 @@
-import type gsap from "gsap";
-import type { TemplateRef } from "vue";
+import type { Ref } from "vue";
 import { isMenuOpen } from "~/components/site/Navbar/state";
+import { toValue } from "vue";
 
 /**
  * Global animation configuration for the Navbar
  */
-const NAVBAR_CONFIG = {
+export const NAVBAR_CONFIG = {
   duration: 0.5,
   ease: "power3.inOut",
 } as const;
@@ -52,7 +52,11 @@ function animateHeader(
 /**
  * Animates the menu icon from hamburger to X.
  */
-function animateIcon(tl: gsap.core.Timeline, topPath: SVGPathElement, bottomPath: SVGPathElement) {
+export function animateIcon(
+  tl: gsap.core.Timeline,
+  topPath: SVGPathElement,
+  bottomPath: SVGPathElement,
+) {
   tl.to(
     topPath,
     {
@@ -73,12 +77,54 @@ function animateIcon(tl: gsap.core.Timeline, topPath: SVGPathElement, bottomPath
 }
 
 /**
+ * Animates the inner navigation panel (expand/collapse).
+ */
+export function animateInnerNav(tl: gsap.core.Timeline, innerNav: HTMLElement) {
+  tl.to(
+    innerNav,
+    {
+      height: "auto",
+      autoAlpha: 1,
+      visibility: "visible",
+      duration: NAVBAR_CONFIG.duration,
+      ease: NAVBAR_CONFIG.ease,
+    },
+    0,
+  );
+}
+
+/**
+ * Animates the navigation links with a stagger effect.
+ */
+export function animateLinks(tl: gsap.core.Timeline, container: HTMLElement) {
+  const links = container.querySelectorAll(".nav-link");
+  if (links.length === 0) return;
+
+  tl.fromTo(
+    links,
+    {
+      y: 20,
+      autoAlpha: 0,
+    },
+    {
+      y: 0,
+      autoAlpha: 1,
+      duration: NAVBAR_CONFIG.duration,
+      ease: NAVBAR_CONFIG.ease,
+      stagger: 0.1,
+    },
+    0.2, // Small delay relative to the main timeline
+  );
+}
+
+/**
  * Sets up navbar sidebar animations using responsive matchMedia.
  */
 export function setupNavbarAnimations(
-  headerRef: TemplateRef<HTMLElement | null>,
-  topPathRef: TemplateRef<SVGPathElement | null>,
-  bottomPathRef: TemplateRef<SVGPathElement | null>,
+  headerRef: Ref<HTMLElement | null>,
+  topPathRef: Ref<SVGPathElement | null> | (() => SVGPathElement | null),
+  bottomPathRef: Ref<SVGPathElement | null> | (() => SVGPathElement | null),
+  innerNavRef: Ref<HTMLElement | null>,
 ) {
   useGsap(gsap => {
     const mm = gsap.matchMedia();
@@ -92,9 +138,10 @@ export function setupNavbarAnimations(
       },
       context => {
         const { isDesktop, isMobile } = context.conditions!;
-        const header = headerRef.value;
-        const topPath = topPathRef.value;
-        const bottomPath = bottomPathRef.value;
+        const header = toValue(headerRef);
+        const topPath = toValue(topPathRef);
+        const bottomPath = toValue(bottomPathRef);
+        const innerNav = toValue(innerNavRef);
 
         if (!header || !topPath || !bottomPath) return;
 
@@ -103,7 +150,7 @@ export function setupNavbarAnimations(
           paused: true,
           onReverseComplete: () => {
             // Clear all GSAP-added inline styles to revert to pure CSS/Tailwind state
-            gsap.set(header, { clearProps: "all" });
+            gsap.set([header, innerNav], { clearProps: "all" });
           },
         });
 
@@ -112,6 +159,12 @@ export function setupNavbarAnimations(
 
         // Add shared icon animation
         animateIcon(mainTl, topPath, bottomPath);
+
+        // Add inner nav animation
+        // animateInnerNav(mainTl, innerNav);
+
+        // Add links animation
+        // animateLinks(mainTl, innerNav);
 
         // SYNC: If the menu is already open when the breakpoint changes (or on mount),
         // ensure the new timeline is at the correct state.

@@ -1,8 +1,17 @@
-/* Haffer Regular */
+/* Haffer Regular 400 */
 @font-face {
   font-family: "Haffer";
   src: url("/assets/fonts/HafferXH-Regular.woff2") format("woff2");
   font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Haffer Regular 900 */
+@font-face {
+  font-family: "Haffer";
+  src: url("/assets/fonts/HafferXH-Heavy.woff2") format("woff2");
+  font-weight: 900;
   font-style: normal;
   font-display: swap;
 }

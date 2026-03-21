@@ -10,20 +10,26 @@ useHead({
 </script>
 
 <template>
+  <div>
+    lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, doloremque. Lorem ipsum dolor
+    sit amet consectetur adipisicing elit. Voluptas, doloremque.
+  </div>
   <section
     class="grid h-dvh grid-rows-[2fr_1fr] overflow-hidden"
     aria-label="Portfolio Hero"
     role="region"
   >
     <!-- Top: 2 rows -->
-    <!-- <div class="grid place-content-center">
+    <!-- <div class="grid place-content-center"> -->
+    <!--
       <p
         class="max-w-3xl font-heading text-4xl font-medium tracking-tighter text-foreground/80 md:text-5xl lg:text-6xl"
       >
         Digital Craftsman & <br />
         Creative Developer.
       </p>
-    </div> -->
+    -->
+    <!-- </div> -->
 
     <!-- Bottom: 1 row -->
     <!-- <div
@@ -44,4 +50,8 @@ useHead({
       </h1>
     </div> -->
   </section>
+  <div>
+    lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, doloremque. Lorem ipsum dolor
+    sit amet consectetur adipisicing elit. Voluptas, doloremque.
+  </div>
 </template>
