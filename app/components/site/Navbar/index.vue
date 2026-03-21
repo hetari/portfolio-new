@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // --- Imports ---
 import { isMenuOpen } from "~/components/site/Navbar/state";
-import { NAVBAR_CONFIG, setupNavbarAnimations } from "~/components/site/Navbar/animation";
+import { NAVBAR_CONFIG, setupNavbarAnimations } from "~/components/site/Navbar/animations";
 import gsap from "gsap";
 
 // --- Menu State & Global Interactions ---
