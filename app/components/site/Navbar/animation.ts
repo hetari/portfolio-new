@@ -54,13 +54,16 @@ function animateHeader(
 
   g.to(header, {
     padding: "6px",
-    duration: NAVBAR_CONFIG.duration,
-    ease: NAVBAR_CONFIG.ease,
+    // cahnge padding by 0.1px
+    duration: 0.25,
+    ease: "power1.inOut",
     overwrite: "auto",
     scrollTrigger: {
       trigger: "#hero-section",
       start: "15% 10%",
-      toggleActions: "play none none reverse", // play on enter, reverse on leaveBack
+      end: "+=50px",
+      toggleActions: "play none none reverse", // onEnter, onLeave, onEnterBack, onLeaveBack
+      invalidateOnRefresh: true,
     },
   });
 }
@@ -102,7 +105,7 @@ export function animateInnerNav(tl: gsap.core.Timeline, innerNav: HTMLElement) {
       height: "auto",
       autoAlpha: 1,
       visibility: "visible",
-      duration: NAVBAR_CONFIG.duration,
+      duration: 0.8, // Match approximate total links duration
       ease: NAVBAR_CONFIG.ease,
     },
     0,
@@ -116,20 +119,23 @@ export function animateLinks(tl: gsap.core.Timeline, container: HTMLElement) {
   const links = container.querySelectorAll(".nav-link");
   if (links.length === 0) return;
 
-  tl.fromTo(
+  tl.set(
     links,
     {
       y: 20,
       autoAlpha: 0,
     },
+    0,
+  ).to(
+    links,
     {
       y: 0,
       autoAlpha: 1,
       duration: NAVBAR_CONFIG.duration,
       ease: NAVBAR_CONFIG.ease,
-      stagger: 0.1,
+      stagger: 0.07,
     },
-    0.2, // Small delay relative to the main timeline
+    0, // Start together with inner nav
   );
 }
 
@@ -170,6 +176,12 @@ export function setupNavbarAnimations(
             // Clear all GSAP-added inline styles to revert to pure CSS/Tailwind state
             gsap.set([header, innerNav], { clearProps: "all" });
           },
+        });
+
+        const { width: windowWidth } = useWindowSize();
+        watch(windowWidth, () => {
+          const progress = mainTl.progress();
+          mainTl.progress(0).invalidate().progress(progress);
         });
 
         // Add responsive header animation
