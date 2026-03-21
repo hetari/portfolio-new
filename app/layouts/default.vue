@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { $switchLocale } = useI18n();
+</script>
 
 <template>
   <!-- TODO: Skip to content link for accessibility -->
@@ -13,4 +15,8 @@
   <main id="main-content" class="relative size-full">
     <slot />
   </main>
+  <div>
+    <button @click="$switchLocale('en')">English</button>
+    <button @click="$switchLocale('ar')">Arabic</button>
+  </div>
 </template>

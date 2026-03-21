@@ -1,3 +1,6 @@
+/* --------------------------- */
+/* ENGLISH */
+/* --------------------------- */
 /* Haffer Regular 400 */
 @font-face {
   font-family: "Haffer";
@@ -30,6 +33,27 @@
   font-family: "Nohemi";
   src: url("/assets/fonts/Nohemi-Regular.woff2") format("woff2");
   font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --------------------------- */
+/* Arabic */
+/* ---------------------------- */
+/* IBMPlexSansArabic-Regular */
+@font-face {
+  font-family: "arabic";
+  src: url("/assets/fonts/IBMPlexSansArabic-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Rubik-VariableFont_wght */
+@font-face {
+  font-family: "rubik";
+  src: url("/assets/fonts/Rubik-VariableFont_wght.ttf") format("woff2");
+  font-weight: 300 900;
   font-style: normal;
   font-display: swap;
 }

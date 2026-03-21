@@ -7,9 +7,9 @@
 */
 
 @theme inline {
-  --font-heading: "Haffer", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-body: "Lay", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-fancy: "Nohemi", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
+  --font-fancy: var(--font-fancy);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -59,6 +59,27 @@
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
+
+  --font-arabic: "arabic", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-rubik: "rubik", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* change all fonts to arabic when page language is ar */
+[lang="ar"],
+[dir="rtl"],
+[lang="ar"] *,
+[dir="rtl"] * {
+  --font-heading: var(--font-rubik);
+  --font-body: var(--font-arabic);
+  --font-fancy: var(--font-arabic);
+}
+[lang="en"],
+[dir="ltr"],
+[lang="en"] *,
+[dir="ltr"] * {
+  --font-heading: "Haffer", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: "Lay", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-fancy: "Nohemi", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 /*

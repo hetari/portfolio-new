@@ -42,9 +42,6 @@ useHead({
         "Explore the portfolio of Ebraheem, a designer and developer focused on creating premium digital experiences.",
     },
   ],
-  htmlAttrs: {
-    lang: "en",
-  },
 });
 </script>
 
