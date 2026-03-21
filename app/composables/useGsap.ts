@@ -1,10 +1,12 @@
 import gsap from "gsap";
+import { MorphSVGPlugin } from "gsap/MorphSVGPlugin";
 
 // ──────────────────────────────────────────────
 // Register GSAP plugins here (single source of truth)
 // e.g. import { ScrollTrigger } from 'gsap/ScrollTrigger'
 //      gsap.registerPlugin(ScrollTrigger)
 // ──────────────────────────────────────────────
+gsap.registerPlugin(MorphSVGPlugin);
 
 type GsapCallback = (instance: typeof gsap) => void;
 

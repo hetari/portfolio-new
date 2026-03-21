@@ -2,6 +2,7 @@
 const props = defineProps<{
   text: string;
   start?: boolean;
+  delay?: number;
 }>();
 
 const words = textToChars(props.text);
@@ -15,6 +16,7 @@ useGsap(gsap => {
 
       gsap.to(".letter", {
         yPercent: 100,
+        delay: props.delay ? props.delay : 0,
         ease: "power4.inOut",
         duration: 0.7,
         stagger: {
@@ -33,7 +35,6 @@ useGsap(gsap => {
     class="flex flex-col items-center"
     @mouseenter="animateLetters('up', false)"
   > -->
-  <!--  <span class="letter"><span>L</span><span>L</span></span> -->
   <p v-for="word in words" class="flex overflow-hidden will-change-transform" data-vitals-ignore>
     <span
       v-for="letter in word"
